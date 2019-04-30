@@ -17,7 +17,7 @@ public class Transaction {
 
     private String place;
 
-    private Double amount;
+    private Long amount;
 
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
@@ -25,6 +25,6 @@ public class Transaction {
     private String card;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "clientId")
     private Client client;
 }
