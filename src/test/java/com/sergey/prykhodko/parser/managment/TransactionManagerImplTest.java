@@ -36,19 +36,42 @@ public class TransactionManagerImplTest {
     public void insertsTransactionsSuccessfully() {
 
         List<Transaction> transactions = new ArrayList<>();
+        Transaction transaction = getBobsTransaction();
+        transactions.add(transaction);
+        transactionManager.saveAll(transactions);
+    }
+
+    @Test
+    @ExpectedDatabase("/db/transaction/expectedAddTwoTransactions.xml")
+    public void insertsTwoTransactionsSameClient() {
+
+        List<Transaction> transactions = new ArrayList<>();
+        Transaction transaction = getBobsTransaction();
+        Transaction secondTransaction = getBobsTransaction();
+        secondTransaction.setAmount(13243L);
+        transactions.add(transaction);
+        transactions.add(secondTransaction);
+        transactionManager.saveAll(transactions);
+    }
+
+    private Transaction getBobsTransaction() {
         Transaction transaction = new Transaction();
         transaction.setAmount(2123L);
         transaction.setCard("625275272527625");
         transaction.setCurrency(Currency.EUR);
         transaction.setPlace("A PLACE 2");
+        Client client = getBobClient();
+        client = clientManager.save(client);
+        transaction.setClient(client);
+        return transaction;
+    }
+
+    private Client getBobClient() {
         Client client = new Client();
         client.setFirstName("Bob");
         client.setLastName("Bin");
         client.setMiddleName("Nick");
         client.setInn(1232323);
-        transaction.setClient(client);
-        transactions.add(transaction);
-        clientManager.save(client);
-        transactionManager.saveAll(transactions);
+        return client;
     }
 }

@@ -11,6 +11,7 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @Entity(name = "client")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"inn"}))
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,5 @@
+<dataset>
+    <client id="1" first_name="Bob" last_name="Bin" middle_name="Nick" inn="1232323"/>
+    <transaction id="1" amount="2123" card="625275272527625" currency="EUR" place="A PLACE 2" client_id="1"/>
+    <transaction id="2" amount="13243" card="625275272527625" currency="EUR" place="A PLACE 2" client_id="1"/>
+</dataset>
