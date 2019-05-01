@@ -46,7 +46,7 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
     public void parseEndElement(String nodeName) {
         String textValue = extractStringFromBuilder();
         switch (nodeName) {
-            case TRANSACTIONS_NODE_NAME:
+            case "transaction":
                 transactions.add(currentTransaction);
                 currentTransaction = null;
                 break;
@@ -76,15 +76,16 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
                 currentClient.setInn(Long.parseLong(textValue));
                 break;
             case "client":
-
                 currentTransaction.setClient(currentClient);
+                currentClient = null;
                 break;
         }
-        currentClient = null;
     }
 
     private long convertValueToLong(String textValue) {
-        return new Double(Double.parseDouble(textValue)).longValue();
+        Double aDoubleValue = new Double(Double.parseDouble(textValue));
+        aDoubleValue *= 100;
+        return aDoubleValue.longValue();
     }
 
 

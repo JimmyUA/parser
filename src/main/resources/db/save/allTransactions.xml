@@ -1,0 +1,19 @@
+<dataset>
+    <client id="1" first_name="Ivan" last_name="Ivanoff" middle_name="Ivanoff" inn="1234567890"/>
+    <client id="2" first_name="Ivan" last_name="Petroff" middle_name="Petroff" inn="1234567891"/>
+    <client id="3" first_name="Ivan" last_name="Sidoroff" middle_name="Sidoroff" inn="1234567892"/>
+
+    <transaction id="1" amount="1001" card="123456****1234" currency="UAH" place="A PLACE 1" client_id="1"/>
+    <transaction id="2" amount="987601" card="123456****1234" currency="UAH" place="A PLACE 2" client_id="1"/>
+    <transaction id="3" amount="1201" card="123456****1234" currency="USD" place="A PLACE 3" client_id="1"/>
+    <transaction id="4" amount="1201" card="123456****1234" currency="EUR" place="A PLACE 4" client_id="1"/>
+    <transaction id="5" amount="1001" card="123456****1234" currency="UAH" place="A PLACE 1" client_id="2"/>
+    <transaction id="6" amount="987601" card="123456****1234" currency="UAH" place="A PLACE 2" client_id="2"/>
+    <transaction id="7" amount="1201" card="123456****1234" currency="USD" place="A PLACE 3" client_id="2"/>
+    <transaction id="8" amount="1201" card="123456****1234" currency="EUR" place="A PLACE 4" client_id="2"/>
+    <transaction id="9" amount="1001" card="123456****1234" currency="UAH" place="A PLACE 1" client_id="3"/>
+    <transaction id="10" amount="987601" card="123456****1234" currency="UAH" place="A PLACE 2" client_id="3"/>
+    <transaction id="11" amount="1201" card="123456****1234" currency="USD" place="A PLACE 3" client_id="3"/>
+    <transaction id="12" amount="1201" card="123456****1234" currency="EUR" place="A PLACE 4" client_id="3"/>
+
+</dataset>

@@ -1,9 +1,9 @@
 package com.sergey.prykhodko.parser.managment;
 
 import com.sergey.prykhodko.parser.TransactionParser;
+import com.sergey.prykhodko.parser.domain.Client;
 import com.sergey.prykhodko.parser.domain.Transaction;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.stream.XMLInputFactory;
@@ -13,22 +13,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class DbSaveManager implements SaveManager {
 
-    @Autowired
-    private TransactionParser transactionParser;
+    private final TransactionParser transactionParser;
 
-    @Autowired
-    private TransactionManager transactionManager;
+    private final TransactionManager transactionManager;
+
+    private final ClientManager clientManager;
+
+    public DbSaveManager(TransactionParser transactionParser, TransactionManager transactionManager, ClientManager clientManager) {
+        this.transactionParser = transactionParser;
+        this.transactionManager = transactionManager;
+        this.clientManager = clientManager;
+    }
 
     @Override
     public boolean save(String filePath) {
         try {
             transactionParser.parse(initReader(filePath));
             List<Transaction> transactions = transactionParser.getParsedObject();
+            List<Client> clients = transactions.stream().map(Transaction::getClient).collect(Collectors.toList());
+            clients.forEach(client -> client.setId(clientManager.save(client).getId()));
             transactionManager.saveAll(transactions);
             return true;
         } catch (Exception e){
