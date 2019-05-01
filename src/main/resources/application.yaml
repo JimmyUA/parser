@@ -19,4 +19,5 @@ spring:
       hibernate.jdbc.batch_size: 200
     hibernate:
       ddl-auto: none
-
+  main:
+    web-application-type: none

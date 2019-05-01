@@ -20,6 +20,8 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
     private Transaction currentTransaction;
     private Client currentClient;
     private final String TRANSACTIONS_NODE_NAME = "transactions";
+    private final String TRANSACTION_NODE_NAME = "transaction";
+    private final String CLIENT_NODE_NAME = "client";
 
 
     public TransactionParser() {
@@ -32,10 +34,10 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
             case TRANSACTIONS_NODE_NAME:
                 this.transactions = new ArrayList<>();
                 break;
-            case "transaction":
+            case TRANSACTION_NODE_NAME:
                 currentTransaction = new Transaction();
                 break;
-            case "client":
+            case CLIENT_NODE_NAME:
                 currentClient = new Client();
                 break;
         }
@@ -46,7 +48,7 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
     public void parseEndElement(String nodeName) {
         String textValue = extractStringFromBuilder();
         switch (nodeName) {
-            case "transaction":
+            case TRANSACTION_NODE_NAME:
                 transactions.add(currentTransaction);
                 currentTransaction = null;
                 break;
@@ -75,7 +77,7 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
             case "inn":
                 currentClient.setInn(Long.parseLong(textValue));
                 break;
-            case "client":
+            case CLIENT_NODE_NAME:
                 currentTransaction.setClient(currentClient);
                 currentClient = null;
                 break;
@@ -83,7 +85,7 @@ public class TransactionParser implements XMLParser<List<Transaction>> {
     }
 
     private long convertValueToLong(String textValue) {
-        Double aDoubleValue = new Double(Double.parseDouble(textValue));
+        Double aDoubleValue = Double.parseDouble(textValue);
         aDoubleValue *= 100;
         return aDoubleValue.longValue();
     }
